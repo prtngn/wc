@@ -1,8 +1,14 @@
-defmodule WcTest do
+defmodule WCTest do
   use ExUnit.Case
-  doctest Wc
+  doctest WC.CLI
 
-  test "greets the world" do
-    assert Wc.hello() == :world
+  test "return word count" do
+    assert WC.CLI.main(["file.txt"]) == {:ok, 14}
+  end
+
+  test "return error if file not exist" do
+    assert_raise File.Error, fn ->
+      WC.CLI.main(["not_exist_file.txt"])
+    end
   end
 end
